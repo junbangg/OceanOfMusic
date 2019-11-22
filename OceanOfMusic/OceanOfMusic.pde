@@ -76,8 +76,10 @@ void draw()
           - current[i][j];
 
         int index = i + j * c;
-        pixels[index] = color(current[i][j]);
-        //pixels[index] = color(before[i][j],current[i][j],0);
+        //black version
+        //pixels[index] = color(current[i][j]);
+        //blue version
+        pixels[index] = color(before[i][j],current[i][j],50);
       }
     }
   updatePixels();
