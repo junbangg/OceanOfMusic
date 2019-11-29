@@ -14,11 +14,18 @@ BeatDetect beat;
 float eRadius;
 boolean pressSwitch = true;
 
+Table table;
+int i = 0;
+
 void setup()
 {
   size(1000, 1000, P3D);
   
+  table = new Table();
   
+  table.addColumn("#");
+  table.addColumn("eRadius");
+ 
   //frameRate(1);
   r = height;
   c = width;
@@ -33,9 +40,23 @@ void setup()
   // a beat detection object song SOUND_ENERGY mode with a sensitivity of 10 milliseconds
   beat = new BeatDetect();
   
+  
+  
   ellipseMode(RADIUS);
   eRadius = 20;
+  
+  
 }
+
+void newRow(float eRadius) {
+  
+  TableRow newRow = table.addRow();
+  newRow.setInt("#", table.getRowCount() - 1);
+  newRow.setFloat("eRadius", eRadius);
+  saveTable(table, "data/sample.csv");
+}
+
+
 
 void mouseClicked() {
     pressSwitch = false;
@@ -49,11 +70,15 @@ void draw()
   //fill(60, 255, 0, a);
   if ( beat.isOnset() ) eRadius = 80;
   
+  println(eRadius);
+  newRow(eRadius);
+  
   if (eRadius> 79 && eRadius<81) {
+    
     before[(int)random(1000)][(int)random(1000)] = 255;
     before[(int)random(1000)][(int)random(1000)] = 255;
   }
-  
+  //if (eRadius 
   if(pressSwitch == true) { 
     eRadius *= 0.95;
     if ( eRadius < 20 ) eRadius = 20;
