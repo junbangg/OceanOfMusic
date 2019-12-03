@@ -25,7 +25,7 @@ void setup()
   
   table.addColumn("#");
   table.addColumn("eRadius");
- 
+  //table.addColumn("duration");
   //frameRate(1);
   r = height;
   c = width;
@@ -40,11 +40,7 @@ void setup()
   // a beat detection object song SOUND_ENERGY mode with a sensitivity of 10 milliseconds
   beat = new BeatDetect();
   
-  
-  
-  ellipseMode(RADIUS);
-  eRadius = 20;
-  
+  //eRadius = 20;
   
 }
 
@@ -53,7 +49,8 @@ void newRow(float eRadius) {
   TableRow newRow = table.addRow();
   newRow.setInt("#", table.getRowCount() - 1);
   newRow.setFloat("eRadius", eRadius);
-  saveTable(table, "data/sample.csv");
+  //newRow.setInt("duration", song.position());
+  saveTable(table, "data/data.csv");
 }
 
 
@@ -68,15 +65,34 @@ void draw()
   beat.detect(song.mix);
   //float a = map(eRadius, 20, 80, 60, 255);
   //fill(60, 255, 0, a);
-  if ( beat.isOnset() ) eRadius = 80;
+  if ( beat.isOnset() ) {
+    //println(song.position());
+    eRadius = 80;
+  }
   
-  println(eRadius);
-  newRow(eRadius);
+  //println(eRadius);
+  //newRow(eRadius);
   
-  if (eRadius> 79 && eRadius<81) {
+  //if (eRadius> 75 && eRadius<81) {
+  if (eRadius> 70 && eRadius<81) {  
     
-    before[(int)random(1000)][(int)random(1000)] = 255;
-    before[(int)random(1000)][(int)random(1000)] = 255;
+    if (pressSwitch == true) {
+      before[(int)random(1000)][(int)random(1000)] = 255;
+      before[(int)random(1000)][(int)random(1000)] = 255;
+      before[(int)random(1000)][(int)random(1000)] = 255;
+      //before[(int)random(250,750)][(int)random(250,750)] = 255;
+      //before[(int)random(400,600)][(int)random(400,600)] = 255;
+      //before[(int)random(400)][(int)random(400)] = 255;
+      //before[(int)random(100)][(int)random(100)] = 255;
+    }
+    else {
+      before[(int)random(1000)][(int)random(1000)] = 255;
+      before[(int)random(1000)][(int)random(1000)] = 255;
+      before[(int)random(1000)][(int)random(1000)] = 255;
+      before[(int)random(1000)][(int)random(1000)] = 255;
+      before[(int)random(1000)][(int)random(1000)] = 255;
+    }
+    
   }
   //if (eRadius 
   if(pressSwitch == true) { 
@@ -105,9 +121,13 @@ void draw()
         //black version
         //pixels[index] = color(current[i][j]);
         //blue version
-        pixels[index] = color(before[i][j],current[i][j],50);
+        pixels[index] = color(before[i][j],current[i][j],70);
       }
     }
+   
+   if(eRadius == 20) {
+      rect(200,800,200,800); 
+   }
   updatePixels();
 
   float[][] temp = before;
