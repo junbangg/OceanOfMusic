@@ -12,6 +12,7 @@ AudioPlayer song;
 BeatDetect beat;
 
 float eRadius;
+float secondRadius;
 boolean pressSwitch = true;
 
 Table table;
@@ -76,6 +77,7 @@ void draw()
   //if (eRadius> 75 && eRadius<81) {
   if (eRadius> 70 && eRadius<81) {  
     
+    
     if (pressSwitch == true) {
       before[(int)random(1000)][(int)random(1000)] = 255;
       before[(int)random(1000)][(int)random(1000)] = 255;
@@ -91,10 +93,21 @@ void draw()
       before[(int)random(1000)][(int)random(1000)] = 255;
       before[(int)random(1000)][(int)random(1000)] = 255;
       before[(int)random(1000)][(int)random(1000)] = 255;
+      
+      if ( beat.isOnset() ) {
+      secondRadius = 100;
+      }
+      println(secondRadius);
+      secondRadius *= 0.95;
+      if (secondRadius < 20) secondRadius = 20;
+      
     }
     
   }
-  //if (eRadius 
+  if(secondRadius > 70 && secondRadius < 81) {
+      println(":_)");
+  }
+  
   if(pressSwitch == true) { 
     eRadius *= 0.95;
     if ( eRadius < 20 ) eRadius = 20;
@@ -102,7 +115,6 @@ void draw()
   
   //if ( eRadius < 20 && pressSwitch == true) eRadius = 20; 
    
-  
   //여기부터 inst 아니면 목소리 나올 때부터 
   //if ( eRadius < 20 ) eRadius = 20;
   //println(eRadius);
@@ -125,9 +137,7 @@ void draw()
       }
     }
    
-   if(eRadius == 20) {
-      rect(200,800,200,800); 
-   }
+   
   updatePixels();
 
   float[][] temp = before;
